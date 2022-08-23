@@ -1,0 +1,25 @@
+Package: teachMultiplexImaging
+Title: Introductory material on software for management and
+	analysis of multiplex imaging data
+Version: 0.0.1
+Authors@R: 
+    c(person(
+        "Vincent", "Carey", role = c("aut", "cre"),
+        email = "stvjc@channing.harvard.edu"),
+      person(
+        "Ludwig", "Geistlinger", role = c("aut", "ctb"),
+        email = "Ludwig_Geistlinger@hms.harvard.edu"),
+      person(
+        "Alexandru", "Mahmoud", role = c("aut", "ctb"),
+        email = "mahmoudalexandru@gmail.com"))
+Description: Pkgdown site for material on software for management
+	and analysis of multiplex imaging data, addressing
+	globally accessible data representations, metadata,
+	and analysis.
+License: Artistic-2.0
+Encoding: UTF-8
+Depends: R (>= 4.2), reticulate
+Suggests: knitr, testthat
+LazyData: true
+VignetteBuilder: knitr
+biocViews: Infrastructure
