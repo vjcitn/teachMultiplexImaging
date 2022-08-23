@@ -58,7 +58,7 @@ has been installed in the appropriate python distribution.
 ```
 library(reticulate)
 zr = import("zarr")
-loc = "https://mghp.osn.xsede.org/bir190004-bucket01/index.html#TMA11/zarr/5.zarr"
+loc = "https://mghp.osn.xsede.org/bir190004-bucket01/TMA11/zarr/5.zarr"
 c5 = zr.load(loc)
 dim(c5)
 ```
