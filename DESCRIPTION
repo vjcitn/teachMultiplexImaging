@@ -11,7 +11,7 @@ Authors@R:
         email = "Ludwig_Geistlinger@hms.harvard.edu"),
       person(
         "Alexandru", "Mahmoud", role = c("aut", "ctb"),
-        email = "mahmoudalexandru@gmail.com"))
+        email = "almahmoud@channing.harvard.edu"))
 Description: Pkgdown site for material on software for management
 	and analysis of multiplex imaging data, addressing
 	globally accessible data representations, metadata,
