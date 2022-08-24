@@ -1,7 +1,7 @@
 Package: teachMultiplexImaging
 Title: Introductory material on software for management and
 	analysis of multiplex imaging data
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     c(person(
         "Vincent", "Carey", role = c("aut", "cre"),
@@ -23,3 +23,5 @@ Suggests: knitr, testthat
 LazyData: true
 VignetteBuilder: knitr
 biocViews: Infrastructure
+BugReports: https://github.com/vjcitn/teachMultiplexImaging/issues
+URL: https://github.com/vjcitn/teachMultiplexImaging
