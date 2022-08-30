@@ -8,6 +8,10 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 format: 
   html:
     code-fold: true
+  jupyter:
+    execute:
+      echo: true
+      eval: true
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{use_OSN: demonstrate usage of Open Storage Network resources for multiplex imaging data}

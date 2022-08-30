@@ -14,6 +14,14 @@ jobs:
         run: ls vignettes/* | grep ".qmd" | xargs -i bash .github/scripts/install_missing.sh {}
       - name: Render html
         run: ls vignettes/* | grep ".qmd" | xargs -i bash -c "quarto render $(realpath {}) --to html"
+      - name: Push rendered formats
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Rendering quarto documents on $(echo $(date +'%m-%d-%y-%H-%M-%S'))"
+          git push
   buildrstudio:
     name: Build RStudio image
     runs-on: ubuntu-latest
@@ -25,6 +33,10 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - name: Set branch name
-        id: branch
-        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${BRANCH_NAME}-auto)"
-      - run: docker build . -t $GITHUB_REPOSITORY-rstudio:${{ steps.branch.outputs.name }} -f .github/scripts/rstudio.Dockerfile
+        id: container
+        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}-rstudio:${BRANCH_NAME})"
+      - run: docker build . -t ${{ steps.container.outputs.name }} -f .github/scripts/rstudio.Dockerfile
+      - name: Push with branch name
+        uses: actions-hub/docker@master
+        with:
+          args: push ${{ steps.container.outputs.name }}
