@@ -1,2 +1,4 @@
+# Run with docker build --build-arg GIT_REPO="account/repo"
 FROM bioconductor/bioconductor_docker:devel
-RUN curl -O https://raw.githubusercontent.com/almahmoud/teachMultiplexImaging/main/.github/scripts/install_missing.sh && ls vignettes/* | grep ".qmd" | xargs -i bash install_missing.sh {} && rm install_missing.sh
+ARG GIT_REPO
+RUN git clone https://github.com/${GIT_REPO} && cd $(echo "${GIT_REPO}" | awk -F/ '{print $NF}') && ls vignettes/* | grep ".qmd" | xargs -i bash .github/scripts/install_missing.sh {}
