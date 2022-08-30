@@ -34,7 +34,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - name: Set branch name
         id: container
-        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}-rstudio:${BRANCH_NAME})"
+        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY,,}-rstudio:${BRANCH_NAME,,})"
       - run: docker build . -t ${{ steps.container.outputs.name }} -f .github/scripts/rstudio.Dockerfile
       - name: Push with branch name
         uses: actions-hub/docker@master
