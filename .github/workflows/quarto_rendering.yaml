@@ -14,3 +14,17 @@ jobs:
         run: ls vignettes/* | grep ".qmd" | xargs -i bash .github/scripts/install_missing.sh {}
       - name: Render html
         run: ls vignettes/* | grep ".qmd" | xargs -i bash -c "quarto render $(realpath {}) --to html"
+  buildrstudio:
+    name: Build RStudio image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set branch name
+        id: branch
+        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${BRANCH_NAME}-auto)"
+      - run: docker build . -t $GITHUB_REPOSITORY-rstudio:${{ steps.branch.outputs.name }} -f .github/scripts/rstudio.Dockerfile
