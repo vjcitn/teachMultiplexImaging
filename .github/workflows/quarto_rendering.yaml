@@ -13,7 +13,7 @@ jobs:
       - name: Install all missing R packages and python modules
         run: ls vignettes/* | grep ".qmd" | xargs -i bash .github/scripts/install_missing.sh {}
       - name: Render html
-        run: ls vignettes/* | grep ".qmd" | xargs -i bash -c "quarto render $(realpath {}) --to html"
+        run: ls vignettes/* | grep ".qmd" | xargs -i bash -c "quarto render $(realpath {}) --to all"
       - name: Push rendered formats
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
