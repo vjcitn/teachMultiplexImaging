@@ -1,0 +1,16 @@
+name: Quarto rendering
+on:
+  workflow_dispatch: {}
+
+jobs:
+  quartotests:
+    container:
+      image: bioconductor/bioconductor_docker:devel
+    name: Test code blocks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install all missing R packages and python modules
+        run: ls vignettes/* | grep ".qmd" | xargs -i bash .github/scripts/install_missing.sh {}
+      - name: Render html
+        run: ls vignettes/* | grep ".qmd" | xargs -i bash -c "quarto render $(realpath {}) --to html"
