@@ -70,3 +70,22 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push ${{ steps.container.outputs.name }}
+
+  buildanvilrstudio:
+    name: Build AnVIL RStudio image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set branch name
+        id: container
+        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY,,}-biocanvil:${BRANCH_NAME,,})"
+      - run: docker build . --build-arg GIT_REPO="$GITHUB_REPOSITORY" -t ${{ steps.container.outputs.name }} -f .github/scripts/anvil-rstudio.Dockerfile
+      - name: Push with branch name
+        uses: actions-hub/docker@master
+        with:
+          args: push ${{ steps.container.outputs.name }}
