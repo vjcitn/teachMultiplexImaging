@@ -1,5 +1,5 @@
 FROM quay.io/bgruening/docker-jupyter-notebook:21.10
-
+ARG GIT_REPO
 RUN conda remove --force-remove -y _libgcc_mutex _r-mutex \
     binutils_impl_linux-64 binutils_linux-64 gcc_impl_linux-64 gcc_linux-64 \
     gfortran_impl_linux-64 gfortran_linux-64 gxx_impl_linux-64 gxx_linux-64 \
