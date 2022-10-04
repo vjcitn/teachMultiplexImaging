@@ -60,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            GIT_REPO="${{github.repository}}"
+            GIT_REPO=${{github.repository}}
           file: .github/scripts/rstudio.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -89,7 +89,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            GIT_REPO="${{github.repository}}"
+            GIT_REPO=${{github.repository}}
           file: .github/scripts/galaxy-jupyter.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -119,7 +119,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            GIT_REPO="${{github.repository}}"
+            GIT_REPO=${{github.repository}}
           file: .github/scripts/anvil-rstudio.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
