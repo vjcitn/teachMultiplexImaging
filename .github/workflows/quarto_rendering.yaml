@@ -61,8 +61,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .github/scripts
-          file: rstudio.Dockerfile
+          file: .github/scripts/rstudio.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -91,8 +90,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .github/scripts
-          file: rstudio.Dockerfile
+          file: .github/scripts/galaxy-jupyter.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -123,7 +121,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .github/scripts
-          file: rstudio.Dockerfile
+          file: .github/scripts/anvil-rstudio.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
