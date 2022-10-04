@@ -45,7 +45,13 @@ jobs:
         id: container
         run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}:biocrstudio-${BRANCH_NAME,,})"
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u "$(echo ${{ steps.container.outputs.name }} | awk -F'/' '{print $1}')" --password-stdin
-      - run: docker build . --build-arg GIT_REPO="$GITHUB_REPOSITORY" -t ghcr.io/${{ steps.container.outputs.name }} -f .github/scripts/rstudio.Dockerfile
+      - run: |
+          docker build . --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" \
+            --label "org.opencontainers.image.description=Bioconductor RStudio image for $GITHUB_REPOSITORY repository" \
+            --label "org.opencontainers.image.licenses=MIT" \
+            --build-arg GIT_REPO="$GITHUB_REPOSITORY" \
+            -t ghcr.io/${{ steps.container.outputs.name }} \
+            -f .github/scripts/rstudio.Dockerfile
       - name: Push with branch name
         uses: actions-hub/docker@master
         with:
@@ -59,7 +65,13 @@ jobs:
         id: container
         run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}:gxyjupyter-${BRANCH_NAME,,})"
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u "$(echo ${{ steps.container.outputs.name }} | awk -F'/' '{print $1}')" --password-stdin
-      - run: docker build . --build-arg GIT_REPO="$GITHUB_REPOSITORY" -t ghcr.io/${{ steps.container.outputs.name }} -f .github/scripts/galaxy-jupyter.Dockerfile
+      - run: |
+          docker build . --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" \
+            --label "org.opencontainers.image.description=Galaxy Jupyter image for $GITHUB_REPOSITORY repository" \
+            --label "org.opencontainers.image.licenses=MIT" \
+            --build-arg GIT_REPO="$GITHUB_REPOSITORY" \
+            -t ghcr.io/${{ steps.container.outputs.name }} \
+            -f .github/scripts/galaxy-jupyter.Dockerfile
       - name: Push with branch name
         uses: actions-hub/docker@master
         with:
@@ -74,7 +86,13 @@ jobs:
         id: container
         run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}:biocanvil-${BRANCH_NAME,,})"
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u "$(echo ${{ steps.container.outputs.name }} | awk -F'/' '{print $1}')" --password-stdin
-      - run: docker build . --build-arg GIT_REPO="$GITHUB_REPOSITORY" -t ghcr.io/${{ steps.container.outputs.name }} -f .github/scripts/anvil-rstudio.Dockerfile
+      - run: |
+          docker build . --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" \
+            --label "org.opencontainers.image.description=Bioconductor AnVIL RStudio image for $GITHUB_REPOSITORY repository" \
+            --label "org.opencontainers.image.licenses=MIT" \
+            --build-arg GIT_REPO="$GITHUB_REPOSITORY" \
+            -t ghcr.io/${{ steps.container.outputs.name }} \
+            -f .github/scripts/anvil-rstudio.Dockerfile
       - name: Push with branch name
         uses: actions-hub/docker@master
         with:
