@@ -54,7 +54,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            prefix=biocrstudio
+            type=raw,value=biocrstudio-{{branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
@@ -83,7 +83,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            prefix=gxyjupyter
+            type=raw,value=gxyjupyter-{{branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
@@ -113,7 +113,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            prefix=biocanvil
+            type=raw,value=biocanvil-{{branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
