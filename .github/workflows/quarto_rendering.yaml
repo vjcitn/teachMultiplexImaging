@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set branch name
         id: container
-        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY,,}:biocrstudio-${BRANCH_NAME,,})"
+        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}:biocrstudio-${BRANCH_NAME,,})"
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u "$(echo ${{ steps.container.outputs.name }} | awk -F'/' '{print $1}')" --password-stdin
       - run: docker build . --build-arg GIT_REPO="$GITHUB_REPOSITORY" -t ghcr.io/${{ steps.container.outputs.name }} -f .github/scripts/rstudio.Dockerfile
       - name: Push with branch name
@@ -57,7 +57,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set branch name
         id: container
-        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY,,}:gxyjupyter-${BRANCH_NAME,,})"
+        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}:gxyjupyter-${BRANCH_NAME,,})"
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u "$(echo ${{ steps.container.outputs.name }} | awk -F'/' '{print $1}')" --password-stdin
       - run: docker build . --build-arg GIT_REPO="$GITHUB_REPOSITORY" -t ghcr.io/${{ steps.container.outputs.name }} -f .github/scripts/galaxy-jupyter.Dockerfile
       - name: Push with branch name
@@ -72,7 +72,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set branch name
         id: container
-        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY,,}:biocanvil-${BRANCH_NAME,,})"
+        run: echo "::set-output name=name::$(BRANCH_NAME=${GITHUB_REF##*/}; echo ${GITHUB_REPOSITORY}:biocanvil-${BRANCH_NAME,,})"
       - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u "$(echo ${{ steps.container.outputs.name }} | awk -F'/' '{print $1}')" --password-stdin
       - run: docker build . --build-arg GIT_REPO="$GITHUB_REPOSITORY" -t ghcr.io/${{ steps.container.outputs.name }} -f .github/scripts/anvil-rstudio.Dockerfile
       - name: Push with branch name
