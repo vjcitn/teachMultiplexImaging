@@ -38,8 +38,10 @@ RUN conda remove --force-remove -y _libgcc_mutex _r-mutex \
     sh /tmp/install_deps.sh && Rscript -e 'install.packages("IRkernel"); install.packages("BiocManager");' && \
     Rscript -e 'BiocManager::install("remotes"); BiocManager::install("forcats")' && \
     Rscript -e 'if(BiocManager::install("geojsonio", dependencies = TRUE) %in% rownames(installed.packages())) q(status = 0) else q(status = 1)' && \
-    curl https://raw.githubusercontent.com/rocker-org/rocker-versioned2/master/scripts/install_quarto.sh | bash && \
-    git clone https://github.com/${GIT_REPO} && cd $(echo "${GIT_REPO}" | awk -F/ '{print $NF}') && ls vignettes/* | grep ".qmd" | xargs -i bash .github/scripts/install_missing.sh {}
+    curl https://raw.githubusercontent.com/rocker-org/rocker-versioned2/master/scripts/install_quarto.sh | bash
+
+USER jovyan
+RUN echo $GIT_REPO > /home/jovyan/gitrepo && REPONAME=$(echo $GIT_REPO | awk -F'/' '{print $NF}'); git clone https://github.com/${GIT_REPO} /home/jovyan/$REPONAME && cd /home/jovyan/$REPONAME && ls vignettes/* | grep ".qmd" | xargs -i bash .github/scripts/install_missing.sh {}
 
 ENV CC=/usr/bin/gcc
 ENV CXX=/usr/bin/g++
